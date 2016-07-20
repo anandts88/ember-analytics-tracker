@@ -1,9 +1,8 @@
 {
   "name": "ember-analytics-tracker",
   "version": "0.0.1",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Ember addon which provides a generic way to define properties for tracking analytics.",
   "directories": {
-    "doc": "doc",
     "test": "tests"
   },
   "scripts": {
@@ -11,7 +10,10 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/anandts88/ember-analytics-tracker.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anandts88/ember-analytics-tracker.git"
+  },
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -56,5 +58,10 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/anandts88/ember-analytics-tracker/issues"
+  },
+  "homepage": "https://github.com/anandts88/ember-analytics-tracker#readme",
+  "main": "index.js"
 }
