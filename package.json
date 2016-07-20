@@ -11,11 +11,11 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": "https://github.com/anandts88/ember-analytics-tracker.git",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Anand Sakthivel",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
@@ -40,7 +40,14 @@
     "loader.js": "^4.0.1"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "ember-metrics",
+    "metrics",
+    "ember-analytics",
+    "ember-analytics-tracker",
+    "analytics",
+    "google-analytics",
+    "google-tag-manager"
   ],
   "dependencies": {
     "broccoli-funnel": "^1.0.2",
