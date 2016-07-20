@@ -4,7 +4,7 @@ Provides a generic way to define properties for tracking analytics using (`googl
 
 ## How to do?
 
-1. Choose the type of tool you want to use for tracking analytics in you ember application. (`google-analytics` or `google-tag-manager` etc).
+1. Choose the type of tool you want to use for tracking analytics in your ember application. (`google-analytics` or `google-tag-manager` etc).
 2. Include the corresponding `javascript` libraries in `vendor` directory or add script tag under `head` of `index.html`.
 3. Define the corresponding adapters in `config/environment.js` under property `analyticsAdapters`.
 4. Generate `analytics-adapter` file for each adapters using blueprint `ember g analytics-adapter <adapter-name>`.
@@ -35,7 +35,7 @@ module.exports = function(environment) {
 
 Generate parameter file using `ember g analytics-param <adapter-name>`.
 
-`<adapter-name>` - This needs to be dasherized adapter name defined in `config/environment.js`. For example, if name of adapter in `config/environment.js` is `googleAnalytics` then this will be google-analytics.
+`<adapter-name>` - This needs to be dasherized adapter name defined in `config/environment.js`. For example, if name of adapter in `config/environment.js` is `googleAnalytics` then this will be `google-analytics`.
 
 Once you run the blueprint `ember g analytics-param google-analytics`. This will create a directory `analytics-params` under which you can see the file `google-analytics.js` with below content.
 
