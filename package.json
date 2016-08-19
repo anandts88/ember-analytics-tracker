@@ -1,6 +1,6 @@
 {
   "name": "ember-analytics-tracker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ember addon which provides a generic way to define properties for tracking analytics.",
   "directories": {
     "test": "tests"
@@ -36,7 +36,7 @@
     "ember-data": "^2.6.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
-    "ember-link-action": "0.0.34",
+    "ember-link-action": "0.0.35",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
     "loader.js": "^4.0.1"
