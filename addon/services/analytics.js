@@ -12,15 +12,10 @@ const {
   copy,
   typeOf,
   A: emberArray,
-  String: { dasherize },
-  run
+  String: { dasherize }
 } = Ember;
 
 const { keys } = Object;
-
-const {
-  scheduleOnce
-} = run;
 
 const assign = Ember.assign || Ember.merge;
 
@@ -140,35 +135,34 @@ export default Service.extend({
    * @return {Void}
    */
   invoke(methodName, options={}) {
-    scheduleOnce('afterRender', this, () => {
-      if (!get(this, 'enabled')) { return; }
+    if (!get(this, 'enabled')) { return; }
 
-      const cachedAdapters = get(this, '_adapters');
-      const allAdapterNames = keys(cachedAdapters);
-      const context = copy(get(this, 'context'));
-      const { adapters } = options;
-      let selectedAdapterNames = allAdapterNames;
-      let mergedOptions;
+    const cachedAdapters = get(this, '_adapters');
+    const allAdapterNames = keys(cachedAdapters);
+    const context = copy(get(this, 'context'));
+    const { adapters } = options;
+    let selectedAdapterNames = allAdapterNames;
+    let mergedOptions;
 
-      if (typeOf(adapters) === 'string') {
-        selectedAdapterNames = [adapters];
-      } else if (typeOf(adapters) === 'array') {
-        selectedAdapterNames = adapters;
-      }
+    if (typeOf(adapters) === 'string') {
+      selectedAdapterNames = [adapters];
+    } else if (typeOf(adapters) === 'array') {
+      selectedAdapterNames = adapters;
+    }
 
-      delete options.adapters;
+    delete options.adapters;
 
-      mergedOptions = assign(context, options);
+    mergedOptions = assign(context, options);
 
-      selectedAdapterNames
-        .map((adapterName) => get(cachedAdapters, adapterName))
-        .forEach((adapter) => {
-          if (adapter) {
-            setProperties(adapter, getProperties(this, ['currentRouteName']));
-            adapter[methodName](mergedOptions);
-          }
-        });
-    });
+    selectedAdapterNames
+      .map((adapterName) => get(cachedAdapters, adapterName))
+      .forEach((adapter) => {
+        if (adapter) {
+          setProperties(adapter, getProperties(this, ['currentRouteName']));
+          adapter[methodName](mergedOptions);
+        }
+      });
+
   },
 
   /**
