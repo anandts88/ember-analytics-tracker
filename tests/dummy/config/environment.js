@@ -18,12 +18,14 @@ module.exports = function(environment) {
       // when it is created
     },
 
-    analyticsAdapters: [
-      {
-        name: 'googleAnalytics',
-        config: {}
-      }
-    ]
+    emberAnalyticsTracker: {
+      adapters: [
+        {
+          name: 'googleAnalytics',
+          config: {}
+        }
+      ]
+    }
   };
 
   if (environment === 'development') {
