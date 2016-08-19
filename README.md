@@ -17,12 +17,14 @@ Configure `adapters` in `config/environment.js`.
 ```
 module.exports = function(environment) {
   var ENV = {
-    analyticsAdapters: [
-      name: 'googleAnalytics',
-      config: {
-        id: 'UA-XXXX-Y'
-      }
-    ]
+    emberAnalyticsTracker: {
+      adapters: [
+        {
+          name: 'googleAnalytics',
+          config: {}
+        }
+      ]
+    }
   };
 }
 
@@ -256,6 +258,20 @@ export default Route.extend({
 
 If transition to `route2` happens then `{ app: 'EmberAnalyticsTracker', page: 'Route2', title: 'Route2Title', myparam: 'route2myparam' }`  will be send as an analytics properties.
 
+Now you can also define analytics page properties in the controller. Define a property under your controller in the name `<adapter-name>PageProperties`. In case of `googleAnalytics` as adapter name it will be `googleAnalyticsPageProperties`.
+
+```
+// app/controllers/route2.js
+
+export default Controller.extend({
+  googleAnalyticsPageProperties: {
+    mycontrollerparam: 'route2mycontrollerparam'
+  }
+});
+
+```
+
+If transition to `route2` happens then `{ app: 'EmberAnalyticsTracker', page: 'Route2', title: 'Route2Title', myparam: 'route2myparam', mycontrollerparam: 'route2mycontrollerparam' }`  will be send as an analytics properties.
 
 #### How to disable page load analytics tracking event for a route.
 
