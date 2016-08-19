@@ -7,21 +7,20 @@ const {
   get,
   getWithDefault,
   computed,
+  computed: { alias },
   defineProperty,
   typeOf,
   isEmpty,
-  String: { camelize }
+  String: { camelize },
+  merge,
+  assign: emberAssign
 } = Ember;
-
-const {
-  alias
-} = computed;
 
 const {
   keys
 } = Object;
 
-const assign = Ember.assign || Ember.merge;
+const assign = emberAssign || merge;
 
 export default EmberObject.extend({
   properties: undefined,
@@ -35,13 +34,21 @@ export default EmberObject.extend({
   alias: K,
 
   /**
+   * Controller of the current route.
+   *
+   * @property model
+   * @type Object
+   * @default undefined
+   */
+  controller: alias('route.controller'),
+  /**
    * Model of the current route.
    *
    * @property model
    * @type Object
    * @default undefined
    */
-  model: alias('route.controller.model'),
+  model: alias('controller.model'),
 
   /**
    * Current Route name
@@ -87,6 +94,7 @@ export default EmberObject.extend({
     this._super(...arguments);
 
     defineProperty(this, 'pageProperties', alias(`model.${pagePropertiesName}`));
+    defineProperty(this, 'pagePropertiesInContoller', alias(`controller.${pagePropertiesName}`));
     defineProperty(this, 'routeConfig', alias(`route.${routeConfigName}`));
   },
 
@@ -107,7 +115,7 @@ export default EmberObject.extend({
 
   getGlobalParam() {
     const param = getWithDefault(this, 'param', {});
-    let result = getWithDefault(param, 'global');
+    const result = getWithDefault(param, 'global', {});
 
     return result;
   },
@@ -152,11 +160,11 @@ export default EmberObject.extend({
 
   getPageParam(all) {
     const pageParam = getWithDefault(this, 'pageProperties', {});
+    const pageParamInContoller = getWithDefault(this, 'pagePropertiesInContoller', {});
     const underscoreParam = this.getUnderscoreParam(all);
     let result = {};
 
-    assign(result, underscoreParam);
-    assign(result, pageParam);
+    assign(result, underscoreParam, pageParam, pageParamInContoller);
 
     return result;
   },
@@ -167,18 +175,21 @@ export default EmberObject.extend({
     const globalParam = this.getGlobalParam();
     const idPathParam = get(pathParam, id);
     const idGlobalParam = get(globalParam, id);
-    let idParam = idGlobalParam || idPathParam;
+    let _idParam = idGlobalParam || idPathParam;
     let temp = {};
     let result = {};
+    let idParam;
 
-    idParam = this.convertToObject(idParam, options);
+    idParam = this.convertToObject(_idParam, options);
 
-    assign(temp, idParam);
-    assign(temp, options);
+    assign(temp, idParam, options);
 
     if (!isEmpty(keys(temp))) {
-      assign(result, pageParam);
-      assign(result, temp);
+      assign(result, pageParam, idParam);
+
+      if (typeOf(_idParam) !== 'function') {
+        assign(result, options);
+      }
     }
 
     return result;
