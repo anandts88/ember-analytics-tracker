@@ -10,7 +10,7 @@ export default <%= baseClass %>.extend({
 
   trackPage() {
     const canTrackPage = get(this, '<%= canTrackPage =>');
-    const param = this.<%= pageParam %>();
+    const param = this.getPageParam();
 
     if (canTrackPage) {
       // Your implemetation goes here
@@ -18,15 +18,15 @@ export default <%= baseClass %>.extend({
   },
 
   trackEvent(options={}) {
-    const { <%= analyticsId %> } = options;
-    const <%= routeConfig %> = getWithDefault(this, '<%= routeConfig %>', {});
+    const { id } = options;
+    const routeConfig = getWithDefault(this, 'routeConfig', {});
     let param;
 
-    delete options.<%= analyticsId %>;
+    delete options.id;
 
-    param = this.<%= param %>(<%= analyticsId %>, options);
+    param = this.getParam(id, options);
 
-    if (getWithDefault(<%= routeConfig %>, <%= analyticsId %>, true)) {
+    if (getWithDefault(routeConfig, id, true)) {
       // Your implemetation goes here
     }
   }
